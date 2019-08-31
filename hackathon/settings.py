@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'medical.apps.MedicalConfig',
     'registration',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
