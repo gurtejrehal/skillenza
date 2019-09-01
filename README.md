@@ -1,8 +1,8 @@
 # skillenza
 
 ## urls
-Admin: localhost/admin/
-APP: localhost/medical/
+> Admin: localhost/admin/
+> APP: localhost/medical/
 
 ## EASY TO USE
 Pragati is minimally design with hiding all the  complexities behind and a minimal design to the user.
