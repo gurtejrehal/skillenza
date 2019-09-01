@@ -53,6 +53,8 @@ class Details(models.Model):
     obs_consequence = models.BooleanField()
     treatment_required = models.CharField(default='', max_length=5)
 
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     class Meta:
         verbose_name_plural = 'Details'
 

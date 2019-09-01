@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>{{user.name}} Analysis</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBB53G9wpqGpUug297wdahoFd5QIqi9zHo&libraries=places&callback=initialize" async defer></script>
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'medical:index' %}">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Analysis</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'medical:index' %}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Details
+      </div>
+
+
+
+      <!-- Nav Item - Charts -->
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Contact us</span></a>
+      </li>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-table"></i>
+          <span>About Us</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <!-- Topbar Search -->
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-dark" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-dark" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+
+            <!-- Nav Item - Alerts -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="m-3 btn btn-dark btn-sm" href="{% url 'medical:edit_form' user.id %}">Edit</a>
+
+            </li>
+
+
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.name }}</span>
+
+              </a>
+
+            </li>
+
+          </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800 section-title">{{ user.name }} </h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Treatment Requirements</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ user.treatment_required }}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+              <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Report Created</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ user.created }}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clock fa-2x text-gray-300" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Report Updated</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ user.updated }}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clock fa-2x text-gray-300" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+          </div>
+
+          <!-- Content Row -->
+
+          <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-8 col-lg-7">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Nearest Hospital</h6>
+
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <div id="map" style="height:300px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pie Chart -->
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Check for Nearest Hospital</h6>
+
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <form name="frm_map" id="frm_map">
+                            <table style="margin-left: 20px;margin-bottom: 20px;">
+                                <tr>
+                                    <th class="font-alt">Address</th>
+                                    <td>
+                                        <input class="form-control" type="text" name="address" id="address" value="Bengaluru, Karnataka">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="font-alt">Radius</th>
+                                    <td>
+                                        <input class="form-control" type="text" name="radius" id="radius" value="5" placeholder="In KM">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="font-alt">Types</th>
+                                    <td>
+                                        <div  class="align-middle" id="type_holder" style="height: 20px;">
+                                            <!-- Dynamic Content -->
+                                        </div>
+                                    </td>
+                                </tr>
+                                   </table>
+                        </form>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <input class="btn btn-dark" type="button" value="Show" id="submit" onclick="renderMap();">
+                            <input class="btn btn-dark" type="reset" value="Reset">
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Content Column -->
+            <div class="col-lg-6 mb-4">
+
+              <!-- Project Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">{{ user.name }}'s Expense History</h6>
+                </div>
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+
+            <div class="col-lg-6 mb-4">
+
+
+
+              <!-- Approach -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">This is a Auto Generated Result</h6>
+                </div>
+                <div class="card-body">
+                  <p>This result is predicted using the pragati AI model to reduce the time taken to check for medical treatment.</p>
+                  <p class="mb-0">Before using this dashboard admin needs to fill the required fields to get the results.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Pragati 2019</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-dark" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+  <!-- Page level plugins -->
+  <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+  <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+
+<script>
+    $(document).ready(function(){
+
+
+        var types = ['hospital'];
+        var html = '';
+
+        $.each(types, function( index, value ) {
+            var name = value.replace(/_/g, " ");
+            html += '<div><label><input type="checkbox" class="types" value="'+ value +'" selected/>'+ capitalizeFirstLetter(name) +'</label></div>';
+        });
+
+        $('#type_holder').html(html);
+    });
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    var map;
+    var infowindow;
+    var autocomplete;
+    var countryRestrict = {'country': 'in'};
+    var selectedTypes = [];
+
+    function initialize()
+    {
+        autocomplete = new google.maps.places.Autocomplete((document.getElementById('address')), {
+            types: ['(regions)'],
+
+        });
+
+        var centerArea = new google.maps.LatLng(26.5200, 88.7300);
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: centerArea,
+            zoom: 25
+        });
+    }
+
+    function renderMap()
+    {
+
+        var address = document.getElementById('address').value;
+        var radius  = parseInt(document.getElementById('radius').value) * 1000;
+
+
+        selectedTypes = [];
+        $('.types').each(function(){
+            if($(this).is(':checked'))
+            {
+                selectedTypes.push($(this).val());
+            }
+        });
+
+        var geocoder    = new google.maps.Geocoder();
+        var selLocLat   = 0;
+        var selLocLng   = 0;
+
+        geocoder.geocode({'address': address}, function(results, status) {
+            if (status === 'OK')
+            {
+
+
+                selLocLat   = results[0].geometry.location.lat();
+                selLocLng   = results[0].geometry.location.lng();
+
+
+
+                var centerArea = new google.maps.LatLng(selLocLat, selLocLng);
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: centerArea,
+                    zoom: 11
+                });
+
+                //console.log(selectedTypes);
+
+                var request = {
+                    location: centerArea,
+
+                    radius: radius,
+                    types: selectedTypes
+                };
+
+                infowindow = new google.maps.InfoWindow();
+
+                var service = new google.maps.places.PlacesService(map);
+                var trafficLayer = new google.maps.TrafficLayer();
+                trafficLayer.setMap(map);
+
+
+
+                service.nearbySearch(request, callback);
+            }
+            else
+            {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+
+    function callback(results, status)
+    {
+        if (status == google.maps.places.PlacesServiceStatus.OK)
+        {
+            for (var i = 0; i < results.length; i++)
+            {
+                createMarker(results[i], results[i].icon);
+            }
+        }
+    }
+
+    function createMarker(place, icon) {
+        var placeLoc = place.geometry.location;
+
+        var marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location,
+            icon: {
+                url: icon,
+                scaledSize: new google.maps.Size(25, 25) // pixels
+            },
+            animation: google.maps.Animation.DROP
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent(place.name+ '<br>' +place.vicinity);
+            infowindow.open(map, this);
+        });
+    };
+
+</script>
+
+</body>
+
+</html>

@@ -38,11 +38,14 @@
 
 html {
     height: 100%;
+    overflow-y:hidden;
     /*Image only BG fallback*/
 
     /*background = gradient + image pattern combo*/
-    background:
-        #F7F7F7;
+   /* background:
+        #F7F7F7;*/
+        background:
+        linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
 }
 .headPanel{
     max-width:50%;
@@ -56,13 +59,15 @@ html {
     border-radius: 5px;
 }
 
+
 body {
     font-family: Dosis;
+
 }
 /*form styles*/
 #msform {
     width: 600px;
-    margin: 50px auto;
+    margin: -60px auto;
     text-align: center;
     position: relative;
 }
@@ -79,6 +84,7 @@ body {
     /*stacking fieldsets above each other*/
     position: relative;
 }
+
 /*Hide all except first fieldset*/
 #msform fieldset:not(:first-of-type) {
     display: none;
@@ -122,7 +128,6 @@ body {
     font-size: 13px;
     color: #666;
     margin-bottom: 20px;
-
 }
 /*progressbar*/
 #progressbar {
@@ -175,6 +180,42 @@ body {
 #progressbar li.active:before,  #progressbar li.active:after{
     background: #27AE60;
     color: white;
+}
+#id_gender li{
+    display: inline-block;
+}
+label input{
+    display: inline-block !important;
+}
+#radio ul li label{
+    display:inline-block;
+}
+.fieldWrapper ul li{
+    display: inline-block !important;
+}
+.fieldWrapper p{
+    float: left;
+    padding-bottom: 10px;
+}
+.fieldWrapper li{
+    margin:0 20px;
+}
+.fieldWrapper p, .fieldWrapper input[type="checkbox"]{
+  display: inline-block;
+}
+#id_work_interfere li{
+    margin:10px 10px;
+}
+.distance li{
+    margin:0px 5px !important;
+}
+input[type="checkbox"]{
+    position:relative;
+    top:-23px;
+}
+fieldset .fieldWrapper{
+    padding:10px 0;
+    border-bottom: 0.2px solid rgba(45, 0, 255, .5)
 }
 
 

@@ -1,0 +1,16 @@
+{% if result.count > 0 %}
+{% for x in result %}
+<tr>
+      <th scope="row">{{x.id}}</th>
+    <td><a href="{% url 'medical:dashboard' x.id %}" style="color:#28a5d3;">{{x.name}}</a>
+        <a class="m-3 btn btn-warning btn-sm" style="border-radius:8px;" href="{% url 'medical:edit_form' x.id %}">Edit</a></td>
+    <td>{{x.treatment_required}}</td>
+</tr>
+
+{% endfor %}
+{% else %}
+<tr>
+    <td class=text-center" colspan="3">Not Present</td>
+
+</tr>
+{% endif %}

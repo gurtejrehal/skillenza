@@ -1,169 +1,131 @@
 <!DOCTYPE html>
 {% load staticfiles %}
-{% load widget_tweaks %}
 <html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>PRAGATI</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-     <!-- Font Awesome -->
+    <head>
+    <title>Welcome</title>
+    <!-- CSS -->
+    <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+         <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        <style>
+            html {
+    height: 100% !important;
+    width: 100%;
+    /*Image only BG fallback*/
 
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    /*background = gradient + image pattern combo*/
+   /* background:
+        ;*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: white;
+}
+        </style>
 </head>
-<body>
-<!-- partial:index.partial.html -->
-<!-- multistep form -->
-<div class="headPanel shadow">
-  <h1 class="section-title">ARE YOU ALRIGHT?</h1><br>
-  <h3>Proceed further to check he/she wants a leave?</h3>
-</div>
-  <!-- progressbar -->
-  <ul id="progressbar">
-    <li class="active">Personal Details</li>
-    <li>Company Details</li>
-    <li>Health Condition</li>
-    <li>Mental Condition</li>
-  </ul>
 
-<form id="msform" method="post" action="{% url 'medical:get_result' %}">
-    {% csrf_token %}
+    <body>
 
-  <!-- fieldsets -->
-  <fieldset>
-    <h2 class="fs-title font-alt1">personal details</h2>
-    <h3 class="fs-subtitle">This is step 1</h3>
+        <div class="container">
 
-      {{ form.non_field_errors }}
-        <div class="fieldWrapper">
-            {{ form.name.errors }}
-            {{ form.name }}
-        </div>
 
-      <div class="fieldWrapper">
-            {{ form.age.errors }}
-            {{ form.age }}
-        </div>
 
-      <div class="fieldWrapper">
-            {{ form.gender.errors }}
-          <p>Gender</p>
-            {{ form.gender }}
-        </div>
+            <div class="row justify-content-center" style="transform:translateY(50%)">
+                    <div class="col-md-8">
+                            <div class="card" style="height: 400px;">
+                                <div class="card-header section-title">welcome</div>
+                                <div class="card-body justify-content-center">
 
-      <div class="fieldWrapper">
-            {{ form.country.errors }}
-            {{ form.country }}
-        </div>
+                                    <div class="row" style="margin-top:40px;">
+                                        <div class="col-md-6">
+                                            <h5 class="font-alt text-center">Search</h5>
+                                                <small class="text-muted">for now you can search Ashish, gurtej or shubham</small>
+                                                {% csrf_token %}
+                                                <input id="search" class="form-control ds-input" type="search">
+                                                <table class="table table-sm text-center font-alt1" style="margin-top:20px;">
+                                                    <thead class="black white-text" id="table-head" style="display:none;">
+                                                        <tr>
+                                                          <th class="align-middle" scope="col">ID</th>
+                                                          <th class="align-middle" scope="col">Name</th>
+                                                            <th scope="col">Treatment Required?</th>
+                                                        </tr>
+                                                    </thead>
+                                                  <tbody id="search-results">
 
-      <div class="fieldWrapper">
-            {{ form.state.errors }}
-            {{ form.state }}
-        </div>
+                                                  </tbody>
+                                                </table>
+<!--                                                <ul id="search-results" class="mt-4"></ul>-->
+
+                                        </div>
+                                        <div class="col-md-6 text-center">
+                                            <h5 class="font-alt text-center">register</h5>
+                                                <a href="{% url 'medical:new_entry' %}" class="btn btn-dark" style="border-radius: 5px;">Check new</a>
+
+                                        </div>
+
+
+                                    </div>
 
 
 
 
-    <input type="button" name="next" class="next action-button" value="Next" />
-  </fieldset>
-  <fieldset>
-    <h2 class="fs-title font-alt1">Company Details</h2>
-    <h3 class="fs-subtitle">Your presence in corporate world</h3>
-    <div class="fieldWrapper">
 
-            {{ form.self_employment.errors }}
-            {{ form.self_employment }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.family_history.errors }}
-            {{ form.family_history }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.work_interfere.errors }}
-            {{ form.work_interfere }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.no_of_employee.errors }}
-            {{ form.no_of_employee }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.remote_work.errors }}
-            {{ form.remote_work }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.tech_company.errors }}
-            {{ form.tech_company }}
-        </div>
-    <input type="button" name="previous" class="previous action-button" value="Previous" />
-    <input type="button" name="next" class="next action-button" value="Next" />
-  </fieldset>
-  <fieldset>
-    <h2 class="fs-title font-alt1">Health Details</h2>
-    <h3 class="fs-subtitle">How much you care about yourself</h3>
-    <div class="fieldWrapper">
-            {{ form.benefits.errors }}
-            {{ form.benefits }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.family_history.errors }}
-            {{ form.family_history }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.wellness.errors }}
-            {{ form.wellness }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.seek_help.errors }}
-            {{ form.seek_help }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.anonymity.errors }}
-            {{ form.anonymity }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.leave.errors }}
-            {{ form.leave }}
-        </div>
-    <input type="button" name="previous" class="previous action-button font-alt" value="Previous" />
-    <input type="button" name="next" class="next action-button font-alt" value="Next" />
-  </fieldset>
+                            </div>
 
-      <fieldset>
-    <h2 class="fs-title font-alt1">Mental Health Details</h2>
-    <h3 class="fs-subtitle">your mental conditions</h3>
-    <div class="fieldWrapper">
-            {{ form.mental_health_consequence.errors }}
-            {{ form.mental_health_consequence }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.phys_health_consequence.errors }}
-            {{ form.phys_health_consequence }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.mental_health_interview.errors }}
-            {{ form.mental_health_interview }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.phys_health_interview.errors }}
-            {{ form.phys_health_interview }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.mental_vs_physical.errors }}
-            {{ form.mental_vs_physical }}
-        </div>
-      <div class="fieldWrapper">
-            {{ form.obs_consequence.errors }}
-            {{ form.obs_consequence }}
-        </div>
-    <input type="button" name="previous" class="previous action-button" value="Previous" />
-    <input type="button" name="next" class="next action-button" value="Submit" />
-  </fieldset>
-</form>
-<!-- partial -->
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+                    </div>
 
-<script  src="{% static 'js/script.js' %}"></script>
+                </div>
 
-</body>
+        </div>
+        </div>
+
+
+     <!-- JS -->
+    <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+       <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.2/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="https://getbootstrap.com/docs/4.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="{% static js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+
+    <script>
+$('#search').keyup(function() {
+$("#table-head").hide()
+    data = {
+            "query" : $('#search').val(),
+            "csrfmiddlewaretoken" : $("input[name=csrfmiddlewaretoken]").val()
+     }
+    console.log(data)
+    $.ajax({
+            url: "/medical/search/",
+            type: "POST",
+            data: data,
+            success: function(response){
+                console.log(response)
+                if (data['query'] == "") $("#search-results").html("")
+                else {
+                    $("#table-head").show()
+                    $("#search-results").html(response)
+                    }
+            }
+
+        });
+
+});
+
+
+</script>
+    </body>
+
+
 </html>
+
