@@ -113,7 +113,7 @@ def new_entry(request):
             body = str.encode(json.dumps(data))
 
             url = 'https://ussouthcentral.services.azureml.net/workspaces/58fe8794f95e4427965cd2c78f62fd6f/services/c55151a5c7b645119790bb34e2f09f74/execute?api-version=2.0&details=true'
-            api_key = str(settings.MICROSOFT_AZURE_API_KEY)  # Replace this with the API key for the web service
+            api_key = str(settings.MICROSOFT_AZURE_API_KEY)
             headers = {'Content-Type': 'application/json', 'Authorization': ('Bearer ' + api_key)}
 
             req = urllib.request.Request(url, body, headers)
