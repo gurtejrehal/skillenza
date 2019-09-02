@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 {% load staticfiles %}
-{% load widget_tweaks %}
 <html lang="en" >
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>PRAGATI</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
      <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
 ​
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
@@ -15,7 +16,14 @@
 <!-- partial:index.partial.html -->
 <!-- multistep form -->
 <div class="headPanel shadow">
-  <h1 class="section-title">ARE YOU ALRIGHT?</h1><br>
+    {% url 'medical:new_entry' as my_url %}
+            {% if  request.path ==  my_url %}
+                    <h1 class="section-title">ARE YOU ALRIGHT?</h1><br>
+            {% else %}
+                <h1 class="section-title">edit : {{ user.name }}</h1><br>
+            {% endif %}
+
+
   <h3>Proceed or get back  <a style="background-color: black;
   border: none;
   border-radius: 5px;
@@ -34,7 +42,7 @@
     <li>Mental Condition</li>
   </ul>
 ​
-<form id="msform" method="post" action="{% url 'medical:get_result' %}">
+<form id="msform" method="post" action="{% url 'medical:new_entry' %}">
     {% csrf_token %}
 ​
   <!-- fieldsets -->
@@ -185,7 +193,14 @@
             {{ form.obs_consequence }}
         </div>
     <input type="button" name="previous" class="previous action-button" value="Previous" />
-    <input type="submit" name="next" class="action-button" value="Submit" />
+          {% url 'medical:new_entry' as my_url %}
+            {% if request.path == my_url %}
+                    <button type="submit" name="next" class="action-button">Submit</button>
+            {% else %}
+                <button type="submit" name="next" class="action-button">Update</button>
+            {% endif %}
+
+<!--    <input type="submit" name="next" class="action-button" value="Submit" />-->
   </fieldset>
 </form>
 <!-- partial -->

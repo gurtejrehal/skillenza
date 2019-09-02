@@ -28,18 +28,23 @@ class DetailsForm(forms.ModelForm):
         ('very_easy', 'Very Easy')
     )
 
+    BOOLEAN_CHOICE = (
+        ('yes', 'yes'),
+        ('no', 'no')
+    )
+
     name = forms.CharField(help_text="Your full name", max_length=128, widget=forms.TextInput(attrs={'placeholder': 'Full name'}))
     age = forms.IntegerField(initial=0)
     gender = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=GENDER_CHOICES)
     country = forms.CharField(help_text="Country", max_length=128, widget=forms.TextInput(attrs={'placeholder': 'Country'}))
     state = forms.CharField(help_text="State", max_length=128, widget=forms.TextInput(attrs={'placeholder': 'State'}))
 
-    self_employment = forms.BooleanField(required=True, initial=False)
-    family_history = forms.BooleanField(required=True, initial=False)
+    self_employment = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=BOOLEAN_CHOICE)
+    family_history = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=BOOLEAN_CHOICE)
     work_interfere = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=WORK)
-    no_of_employee = forms.IntegerField(initial=0)
-    remote_work = forms.BooleanField(required=True, initial=False)
-    tech_company = forms.BooleanField(required=True, initial=False)
+    no_of_employee = forms.IntegerField(required=False, initial=0)
+    remote_work = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=BOOLEAN_CHOICE)
+    tech_company = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=BOOLEAN_CHOICE)
 
     benefits = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=OPTIONS)
     wellness = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=OPTIONS)
@@ -52,7 +57,7 @@ class DetailsForm(forms.ModelForm):
     mental_health_interview = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=OPTIONS)
     phys_health_interview = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=OPTIONS)
     mental_vs_physical = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=OPTIONS)
-    obs_consequence = forms.BooleanField(required=True, initial=False)
+    obs_consequence = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=BOOLEAN_CHOICE)
 
 
 

@@ -28,18 +28,23 @@ class Details(models.Model):
         ('very_easy', 'Very Easy')
     )
 
+    BOOLEAN_CHOICE = (
+        ('yes', 'yes'),
+        ('no', 'no')
+    )
+
     # gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.RadioSelect())
     name = models.CharField(max_length=25)
     age = models.IntegerField(default=0)
     gender = models.CharField(choices=GENDER_CHOICES, max_length=25)
     country = models.CharField(default='', max_length=25)
     state = models.CharField(default='', max_length=25)
-    self_employment = models.BooleanField()
-    family_history = models.BooleanField()
+    self_employment = models.CharField(choices=BOOLEAN_CHOICE, max_length=10)
+    family_history = models.CharField(choices=BOOLEAN_CHOICE, max_length=10)
     work_interfere = models.CharField(default='', max_length=25, choices=WORK)
     no_of_employee = models.IntegerField(default=0)
-    remote_work = models.BooleanField()
-    tech_company = models.BooleanField()
+    remote_work = models.CharField(choices=BOOLEAN_CHOICE, max_length=10)
+    tech_company = models.CharField(choices=BOOLEAN_CHOICE, max_length=10)
     benefits = models.CharField(choices=OPTIONS, max_length=25)
     wellness = models.CharField(choices=OPTIONS, max_length=25)
     seek_help = models.CharField(choices=OPTIONS, max_length=25)
@@ -50,7 +55,7 @@ class Details(models.Model):
     mental_health_interview = models.CharField(choices=OPTIONS, max_length=25)
     phys_health_interview = models.CharField(choices=OPTIONS, max_length=25)
     mental_vs_physical = models.CharField(choices=OPTIONS, max_length=25)
-    obs_consequence = models.BooleanField()
+    obs_consequence = models.CharField(choices=BOOLEAN_CHOICE, max_length=10)
     treatment_required = models.CharField(default='', max_length=5)
 
     created = models.DateTimeField(auto_now_add=True)
