@@ -26,6 +26,8 @@ MEDIA_ROOT = MEDIA_DIR
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '+q)mlqj1q(4$rr$=wze8b2h=tex*1sy1+3_x6zkeco(%#nx+%5'
+GOOGLE_MAPS_API_KEY = os.environ.get('GOOGLE_MAPS_API_KEY')
+MICROSOFT_AZURE_API_KEY =  os.environ.get('MICROSOFT_AZURE_API_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
