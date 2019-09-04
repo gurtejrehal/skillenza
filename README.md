@@ -32,7 +32,7 @@ GOOGLE_MAP_API_KEY=your_key
 - User can set the radius to search for the hospital
 
 
-###EASY TO USE
+### EASY TO USE
 - Pragati is minimally design with hiding all the  complexities behind and a minimal design to the user.
 - User either search for existing person or may add a new patient all in the home page.
 - Search results are dynamic and is provided with ready to edit and view options.
