@@ -1,12 +1,12 @@
-#Skillenza - Hacknight 2019
+# Skillenza - Hacknight 2019
 
-##APP: Pragati - Medical App
+## APP: Pragati - Medical App
 
 ## What is this?
 This is app was made in 12 hours long hackathon in Microsoft Office, Bengaluru.
 The Problem statement for this app to build an app which can predict that whether an user requires a medical treatment or not.
 
-##Deployed on Heroku
+## Deployed on Heroku
 
 Deployed [here](http://gurtej123.herokuapp.com "here").
 
@@ -14,7 +14,7 @@ Deployed [here](http://gurtej123.herokuapp.com "here").
 
 Remeber while deploying to hide your enviorment variables.
 
-##Installation
+## Installation
 - ```git clone https://github.com/gurtejrehal/skillenza.git``` 
 - create .env file and add
 ```python
